@@ -67,7 +67,7 @@ public class FurflyController : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
                 if (hit.distance < 1f && (hit.collider.tag == "Box"|| hit.collider.tag == "Player"))
                 {
-                    jumpForce = 100f;
+                    jumpForce = hit.collider.gameObject.GetComponent<Rigidbody2D>().mass* hit.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale*15;
                     GetComponent<DistanceJoint2D>().connectedBody = hit.collider.gameObject.GetComponent<Rigidbody2D>();
                     GetComponent<DistanceJoint2D>().enabled = true;                    
                     hasObject = true;
