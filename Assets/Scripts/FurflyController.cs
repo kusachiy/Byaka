@@ -3,14 +3,15 @@ using System.Collections;
 
 public class FurflyController : MonoBehaviour
 {   
-    public float maxSpeed = 6f;
-    public float jumpForce = 1000f;   
-    public float verticalSpeed = 20;
+    private float maxSpeed = 3f;
+    private float jumpForce = 10f;
+        
     [HideInInspector]
     public bool lookingRight = true;   
     public GameObject Boost;
 
-    private Animator cloudanim;
+    bool hasObject = false;
+          
     public GameObject Cloud;
 
 
@@ -22,10 +23,8 @@ public class FurflyController : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();        
-        //cloudanim = GetComponent<Animator>();
-        Cloud = GameObject.Find("Cloud");
-        //cloudanim = GameObject.Find("Cloud(Clone)").GetComponent<Animator>();    
+        anim = GetComponent<Animator>();     
+        Cloud = GameObject.Find("Cloud");        
     } 
 
 
@@ -34,10 +33,9 @@ public class FurflyController : MonoBehaviour
 
         if (collision2D.relativeVelocity.magnitude > 20)
         {
-            Boost = Instantiate(Resources.Load("Prefabs/Cloud"), transform.position, transform.rotation) as GameObject;
-            //	cloudanim.Play("cloud");	
+            Boost = Instantiate(Resources.Load("Prefabs/Cloud"), transform.position, transform.rotation) as GameObject;            
+        }      
 
-        }
     }
 
 
@@ -46,18 +44,42 @@ public class FurflyController : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
             rb2d.AddForce(new Vector2(0, jumpForce));           
         }
 
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
         {
-            rb2d.AddForce(new Vector2(0, -jumpForce));
-            Boost = Instantiate(Resources.Load("Prefabs/Cloud"), transform.position, transform.rotation) as GameObject;
-            //cloudanim.Play("cloud");
-        }       
+            rb2d.AddForce(new Vector2(0, -jumpForce));             
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            rb2d.velocity = new Vector2(0,0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (!hasObject)
+            {                
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
+                if (hit.distance < 1f && (hit.collider.tag == "Box"|| hit.collider.tag == "Player"))
+                {
+                    jumpForce = 100f;
+                    GetComponent<DistanceJoint2D>().connectedBody = hit.collider.gameObject.GetComponent<Rigidbody2D>();
+                    GetComponent<DistanceJoint2D>().enabled = true;                    
+                    hasObject = true;
+                }
+            }
+            else
+            {
+                jumpForce = 10f;
+                hasObject = false;
+                GetComponent<DistanceJoint2D>().enabled = false;
+            }
+        }
 
     }
 
@@ -73,9 +95,9 @@ public class FurflyController : MonoBehaviour
        
 
         if ((hor > 0 && !lookingRight) || (hor < 0 && lookingRight))
-            Flip();       
+            Flip();
 
-
+        
         /*float hor = Input.GetAxis ("Horizontal");
 
 		anim.SetFloat ("Speed", Mathf.Abs (hor));

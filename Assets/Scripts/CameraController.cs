@@ -30,6 +30,16 @@ public class CameraController : MonoBehaviour
             Player = Player==player1.transform?player2.transform:player1.transform;
             player1.GetComponent<FurryController>().enabled = !player1.GetComponent<FurryController>().enabled;
             player2.GetComponent<FurflyController>().enabled = !player2.GetComponent<FurflyController>().enabled;
+            if (player2.GetComponent<FurflyController>().enabled)
+            {
+                player2.GetComponent<FurflyAutopilot>().enabled = false;                
+                
+            }
+            else
+            {
+                player2.GetComponent<FurflyAutopilot>().enabled = true;
+            }
+            
 
         }
     }
