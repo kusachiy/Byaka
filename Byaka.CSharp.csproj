@@ -70,11 +70,13 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\DestroyCloud.cs" />
+    <Compile Include="Assets\Scripts\Door_openning.cs" />
     <Compile Include="Assets\Scripts\FurflyAutopilot.cs" />
     <Compile Include="Assets\Scripts\FurflyController.cs" />
     <Compile Include="Assets\Scripts\FurryController.cs" />
     <Compile Include="Assets\Scripts\GameRules.cs" />
     <Compile Include="Assets\Scripts\HitVelDetection.cs" />
+    <Compile Include="Assets\door.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
