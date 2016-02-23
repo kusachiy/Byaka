@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\FurflyAutopilot.cs" />
     <Compile Include="Assets\Scripts\FurflyController.cs" />
     <Compile Include="Assets\Scripts\FurryController.cs" />
+    <Compile Include="Assets\Scripts\GameRules.cs" />
     <Compile Include="Assets\Scripts\HitVelDetection.cs" />
   </ItemGroup>
   <ItemGroup>
