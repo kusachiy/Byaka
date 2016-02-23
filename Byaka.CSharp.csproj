@@ -76,7 +76,8 @@
     <Compile Include="Assets\Scripts\FurryController.cs" />
     <Compile Include="Assets\Scripts\GameRules.cs" />
     <Compile Include="Assets\Scripts\HitVelDetection.cs" />
-    <Compile Include="Assets\door.cs" />
+    <Compile Include="Assets\Scripts\SilverKey.cs" />
+    <Compile Include="Assets\Scripts\badBoy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />

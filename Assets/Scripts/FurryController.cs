@@ -39,7 +39,7 @@ public class FurryController : MonoBehaviour {
 		if (collision2D.relativeVelocity.magnitude > 20){
 			Boost = Instantiate(Resources.Load("Prefabs/Cloud"), transform.position, transform.rotation) as GameObject;
 		//	cloudanim.Play("cloud");	
-		}        
+		}             
     }
 
 
