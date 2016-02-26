@@ -47,7 +47,7 @@ public class FurryController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-	if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || !doubleJump))
+	    if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || !doubleJump))
 		{
 			rb2d.AddForce(new Vector2(0,jumpForce));
 
@@ -59,8 +59,15 @@ public class FurryController : MonoBehaviour {
 			}
 		}
 
-
-	if (Input.GetKeyDown(KeyCode.S)&& !isGrounded)
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            maxSpeed /= 3;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            maxSpeed *= 3;
+        }
+        if (Input.GetKeyDown(KeyCode.S)&& !isGrounded)
 		{
 			rb2d.AddForce(new Vector2(0,-jumpForce));
 			Boost = Instantiate(Resources.Load("Prefabs/Cloud"), transform.position, transform.rotation) as GameObject;

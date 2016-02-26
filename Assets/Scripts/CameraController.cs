@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class CameraController : MonoBehaviour 
 {	
@@ -19,32 +20,59 @@ public class CameraController : MonoBehaviour
     }
 
     public void Update()
-	{
+    {
 
-
-		if (Player) 
-		{		
-			transform.position = Vector3.Lerp(transform.position, Player.position, m_speed) + new Vector3(0, 0, -12);
-		}
+        if (Player)
+        {
+            transform.position = Vector3.Lerp(transform.position, Player.position, m_speed) + new Vector3(0, 0, -12);
+        }
+        else
+        {
+            if (player1)
+            {
+                Player = player1.transform;
+                player1.GetComponent<FurryController>().enabled = true;
+            }
+            else
+            {
+                if (player2)
+                {
+                    Player = player2.transform;
+                    player2.GetComponent<FurflyController>().enabled = true;
+                    player2.GetComponent<FurflyAutopilot>().enabled = false;
+                }
+                else
+                {
+                    GameObject.Find("mygui").GetComponent<GUIText>().text = "Game Over";
+                    Invoke("RestartLevel", 2f);
+                }
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            Player = Player==player1.transform?player2.transform:player1.transform;
+            Player = Player == player1.transform ? player2.transform : player1.transform;
             player1.GetComponent<FurryController>().enabled = !player1.GetComponent<FurryController>().enabled;
             player2.GetComponent<FurflyController>().enabled = !player2.GetComponent<FurflyController>().enabled;
             if (player2.GetComponent<FurflyController>().enabled)
             {
-                player2.GetComponent<FurflyAutopilot>().enabled = false;                
-                
+                player2.GetComponent<FurflyAutopilot>().enabled = false;
+
             }
             else
             {
                 player2.GetComponent<FurflyAutopilot>().enabled = true;
             }
-       }
+        }
         if (Input.GetKeyDown(KeyCode.V))
         {
-            mycam.orthographicSize = (Screen.height / 100f) / camSize[currentCam = (currentCam+1)%3];
-        }
+            mycam.orthographicSize = (Screen.height / 100f) / camSize[currentCam = (currentCam + 1) % 3];
+        }       
     }
+
+    void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    
 }
